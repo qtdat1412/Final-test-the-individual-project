@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thực Đơn Sản Phẩm - 1985 Café Trà Vinh</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo.jpg" alt="1985 Cafe Logo" class="logo-img" onerror="this.style.display='none'">
+        <span>1985 <i>Café</i></span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="gioi-thieu.html" class="nav-link">Giới thiệu</a>
+        <a href="san-pham.html" class="nav-link active">Sản phẩm</a>
+        <a href="lien-he.html" class="nav-link">Liên hệ</a>
+        <a href="../index.html#booking" class="nav-link btn-gold">Đặt bàn</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="container" style="padding-top: 30px;">
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      <a href="../index.html">Trang chủ</a> &rsaquo; 
+      <span style="color: var(--primary-color); font-weight: 600;">Sản phẩm</span>
+    </p>
+  </div>
+
+  <!-- MENU SECTION -->
+  <section class="section-padding container">
+    <div class="text-center">
+      <span class="sub-title">Hương Vị Hoài Cổ</span>
+      <h2 class="section-title">Thực Đơn 1985 Café</h2>
+    </div>
+
+    <!-- THANH LỌC DANH MỤC -->
+    <div class="filter-buttons" style="display: flex; justify-content: center; gap: 10px; margin: 30px 0; flex-wrap: wrap;">
+      <button class="filter-btn active btn btn-primary" data-filter="all" style="padding: 8px 20px; font-size: 0.9rem;">Tất Cả Món (18)</button>
+      <button class="filter-btn btn btn-outline" data-filter="coffee" style="padding: 8px 20px; font-size: 0.9rem; color: var(--primary-color); border-color: var(--border-color);">Cà Phê Truyền Thống (6)</button>
+      <button class="filter-btn btn btn-outline" data-filter="tea" style="padding: 8px 20px; font-size: 0.9rem; color: var(--primary-color); border-color: var(--border-color);">Trà & Trái Cây (6)</button>
+      <button class="filter-btn btn btn-outline" data-filter="bakery" style="padding: 8px 20px; font-size: 0.9rem; color: var(--primary-color); border-color: var(--border-color);">Bánh Ngọt & Ăn Vặt (6)</button>
+    </div>
+
+    <!-- DANH SÁCH 18 MÓN -->
+    <div class="menu-grid">
+      
+      <!-- === NHÓM 1: CÀ PHÊ (6 MÓN) === -->
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/cafe-den.jpg" alt="Cà Phê Phin Cổ Điển"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">TRADITIONAL</span>
+          <h3 class="item-title">Cà Phê Phin Cổ Điển</h3>
+          <p class="item-desc">Hạt Robusta mộc đậm đà pha phin chuẩn vị Trà Vinh hoài cổ.</p>
+          <div class="card-footer">
+            <span class="item-price">28.000đ</span>
+            <a href="chi-tiet.html?id=1" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/cafe-muoi-1985.jpg" alt="Cà Phê Muối 1985"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">SIGNATURE</span>
+          <h3 class="item-title">Cà Phê Muối 1985</h3>
+          <p class="item-desc">Cà phê phin đậm đà kết hợp với lớp kem mặn béo ngậy đặc trưng.</p>
+          <div class="card-footer">
+            <span class="item-price">35.000đ</span>
+            <a href="chi-tiet.html?id=2" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/Bac-xiu-sai-gon.jpg" alt="Bạc Xỉu Sài Gòn"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">CLASSIC</span>
+          <h3 class="item-title">Bạc Xỉu Sài Gòn</h3>
+          <p class="item-desc">Sữa đặc ngọt ngào hòa quyện chút thơm nồng của cà phê phin nguyên chất.</p>
+          <div class="card-footer">
+            <span class="item-price">30.000đ</span>
+            <a href="chi-tiet.html?id=3" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/cafe-sua-da.jpg" alt="Cà Phê Sữa Đá Phin" onerror="this.src='../assets/cafe-den.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">POPULAR</span>
+          <h3 class="item-title">Cà Phê Sữa Đá Phin</h3>
+          <p class="item-desc">Cà phê phin đậm vị hòa quyện với sữa đặc thơm ngon, chút đá mát lạnh.</p>
+          <div class="card-footer">
+            <span class="item-price">29.000đ</span>
+            <a href="chi-tiet.html?id=4" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/cafe-trung.jpg" alt="Cà Phê Trứng Hà Nội" onerror="this.src='../assets/cafe-muoi-1985.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">SPECIAL</span>
+          <h3 class="item-title">Cà Phê Trứng Hà Nội</h3>
+          <p class="item-desc">Cà phê phin kết hợp lớp kem trứng đánh bông mịn, béo ngậy quyến rũ.</p>
+          <div class="card-footer">
+            <span class="item-price">39.000đ</span>
+            <a href="chi-tiet.html?id=5" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="coffee">
+        <div class="card-img"><img src="../assets/cafe-cot-dua.jpg" alt="Cà Phê Cốt Dừa Cold Brew" onerror="this.src='../assets/Bac-xiu-sai-gon.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">NEW</span>
+          <h3 class="item-title">Cà Phê Cốt Dừa Cold Brew</h3>
+          <p class="item-desc">Cà phê ủ lạnh kết hợp cốt dừa xay đá tuyết thơm béo, giải nhiệt cực đã.</p>
+          <div class="card-footer">
+            <span class="item-price">42.000đ</span>
+            <a href="chi-tiet.html?id=6" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NHÓM 2: TRÀ & TRÁI CÂY (6 MÓN) === -->
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/tra-mang-cau-dak-lak.jpg" alt="Trà Mảng Cầu Đắk Lắk"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">BEST SELLER</span>
+          <h3 class="item-title">Trà Mảng Cầu Đắk Lắk</h3>
+          <p class="item-desc">Trà xanh thơm mát đơm đầy tép mảng cầu chua ngọt tự nhiên.</p>
+          <div class="card-footer">
+            <span class="item-price">38.000đ</span>
+            <a href="chi-tiet.html?id=7" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/Tra-dao-cam-xa.jpg" alt="Trà Đào Cam Sả"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">REFRESHING</span>
+          <h3 class="item-title">Trà Đào Cam Sả</h3>
+          <p class="item-desc">Vị trà thanh dịu kết hợp cùng hương sả nồng nàn và đào ngâm giòn sần sật.</p>
+          <div class="card-footer">
+            <span class="item-price">35.000đ</span>
+            <a href="chi-tiet.html?id=8" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/tra-dau-tay-tam.jpg" alt="Trà Dâu Tây Tằm" onerror="this.src='../assets/Tra-dao-cam-xa.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">SPECIAL</span>
+          <h3 class="item-title">Trà Dâu Tây Tằm</h3>
+          <p class="item-desc">Trà đen kết hợp mứt dâu tây tằm tự làm, chua ngọt đậm vị giải nhiệt.</p>
+          <div class="card-footer">
+            <span class="item-price">38.000đ</span>
+            <a href="chi-tiet.html?id=9" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/tra-vai-kem-cheese.jpg" alt="Trà Vải Lài Kem Cheese" onerror="this.src='../assets/tra-mang-cau-dak-lak.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">POPULAR</span>
+          <h3 class="item-title">Trà Vải Lài Kem Cheese</h3>
+          <p class="item-desc">Trà lài thơm ngát kết hợp trái vải ngọt thanh và lớp kem cheese béo ngậy.</p>
+          <div class="card-footer">
+            <span class="item-price">40.000đ</span>
+            <a href="chi-tiet.html?id=10" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/tra-oi-hong.jpg" alt="Trà Ổi Hồng Xí Muội" onerror="this.src='../assets/Tra-dao-cam-xa.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">NEW</span>
+          <h3 class="item-title">Trà Ổi Hồng Xí Muội</h3>
+          <p class="item-desc">Trà thanh mát đậm đà hương ổi hồng tự nhiên, chua ngọt tròn vị xí muội.</p>
+          <div class="card-footer">
+            <span class="item-price">36.000đ</span>
+            <a href="chi-tiet.html?id=11" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="tea">
+        <div class="card-img"><img src="../assets/tra-tac-xi-muoi.jpg" alt="Trà Tắc Xí Muội Đường Phèn" onerror="this.src='../assets/tra-mang-cau-dak-lak.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">HEALTHY</span>
+          <h3 class="item-title">Trà Tắc Xí Muội Đường Phèn</h3>
+          <p class="item-desc">Thức uống giải khát truyền thống vị chua nhẹ của tắc và ngọt thanh đường phèn.</p>
+          <div class="card-footer">
+            <span class="item-price">32.000đ</span>
+            <a href="chi-tiet.html?id=12" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- === NHÓM 3: BÁNH NGỌT & ĂN VẶT (6 MÓN) === -->
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/Croissant-Bo-Tuoi.jpg" alt="Croissant Bơ Tươi"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">BAKERY</span>
+          <h3 class="item-title">Croissant Bơ Tươi</h3>
+          <p class="item-desc">Bánh sừng bò nướng nóng hổi tại chỗ, xốp mềm ngập tràn hương bơ Pháp.</p>
+          <div class="card-footer">
+            <span class="item-price">32.000đ</span>
+            <a href="chi-tiet.html?id=13" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/tiramisu.jpg" alt="Bánh Tiramisu Truyền Thống" onerror="this.src='../assets/Croissant-Bo-Tuoi.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">SWEET</span>
+          <h3 class="item-title">Bánh Tiramisu Truyền Thống</h3>
+          <p class="item-desc">Cốt bánh đẫm hương vị cà phê nhẹ, lớp kem Mascarpone béo mịn phủ cacao.</p>
+          <div class="card-footer">
+            <span class="item-price">39.000đ</span>
+            <a href="chi-tiet.html?id=14" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/banh-mi-bo-toi.jpg" alt="Bánh Mì Phô Mai Bơ Tỏi" onerror="this.src='../assets/Croissant-Bo-Tuoi.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">HOT ITEM</span>
+          <h3 class="item-title">Bánh Mì Phô Mai Bơ Tỏi</h3>
+          <p class="item-desc">Vỏ bánh giòn rụm thơm nức mùi bơ tỏi, nhân phô mai béo ngậy kéo sợi.</p>
+          <div class="card-footer">
+            <span class="item-price">35.000đ</span>
+            <a href="chi-tiet.html?id=15" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/bong-lan-trung-muoi.jpg" alt="Bánh Bông Lan Trứng Muối" onerror="this.src='../assets/Croissant-Bo-Tuoi.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">FAVORITE</span>
+          <h3 class="item-title">Bánh Bông Lan Trứng Muối</h3>
+          <p class="item-desc">Cốt bánh mềm xốp, sốt bơ béo ngậy kết hợp chà bông mặn và trứng muối.</p>
+          <div class="card-footer">
+            <span class="item-price">35.000đ</span>
+            <a href="chi-tiet.html?id=16" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/mousse-chanh-day.jpg" alt="Bánh Mousse Chanh Dây" onerror="this.src='../assets/Croissant-Bo-Tuoi.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">FRESH</span>
+          <h3 class="item-title">Bánh Mousse Chanh Dây</h3>
+          <p class="item-desc">Bánh lạnh với lớp kem mịn màng chua nhẹ vị chanh dây tươi, thanh mát.</p>
+          <div class="card-footer">
+            <span class="item-price">36.000đ</span>
+            <a href="chi-tiet.html?id=17" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card" data-category="bakery">
+        <div class="card-img"><img src="../assets/huong-duong.jpg" alt="Hướng Dương Phủ Mật Ong" onerror="this.src='../assets/Croissant-Bo-Tuoi.jpg'"></div>
+        <div class="card-body">
+          <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600;">SNACK</span>
+          <h3 class="item-title">Hướng Dương Phủ Mật Ong</h3>
+          <p class="item-desc">Món ăn vặt không thể thiếu khi nhâm nhi cà phê trò chuyện cùng bạn bè.</p>
+          <div class="card-footer">
+            <span class="item-price">20.000đ</span>
+            <a href="chi-tiet.html?id=18" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="../index.html" class="logo text-white">1985 <i>Café</i></a>
+        <p style="margin-top: 10px;">Cùng bạn lưu giữ những hoài niệm đẹp giữa lòng thành phố Trà Vinh.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Thứ 6: 06:30 - 22:00</p>
+        <p>Thứ 7 - Chủ Nhật: 06:30 - 22:30</p>
+      </div>
+      <div class="footer-col">
+        <h4>Địa Chỉ & Liên Hệ</h4>
+        <p>📍 Đường Phạm Ngũ Lão, Phường 1, TP. Trà Vinh</p>
+        <p>📞 0294 3868 985</p>
+        <p>✉️ contact@1985cafetravinh.vn</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom text-center">
+      <p>&copy; <span id="current-year"></span> <strong>1985 Café Trà Vinh</strong>. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

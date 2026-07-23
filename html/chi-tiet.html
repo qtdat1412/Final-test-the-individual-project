@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sản Phẩm - 1985 Café Trà Vinh</title>
+  
+  <!-- Google Fonts: Playfair Display & Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       1. HEADER / NAVIGATION
+       ========================================== -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo.jpg" alt="1985 Cafe Logo" class="logo-img" onerror="this.style.display='none'">
+        <span>1985 <i>Café</i></span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="gioi-thieu.html" class="nav-link">Giới thiệu</a>
+        <a href="san-pham.html" class="nav-link active">Sản phẩm</a>
+        <a href="lien-he.html" class="nav-link">Liên hệ</a>
+        <a href="../index.html#booking" class="nav-link btn-gold">Đặt bàn</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       2. BREADCRUMB (THANH ĐIỀU HƯỚNG)
+       ========================================== -->
+  <div class="container" style="padding-top: 30px;">
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      <a href="../index.html">Trang chủ</a> &rsaquo; 
+      <a href="san-pham.html">Sản phẩm</a> &rsaquo; 
+      <span id="breadcrumb-name" style="color: var(--primary-color); font-weight: 600;">Chi tiết món</span>
+    </p>
+  </div>
+
+  <!-- ==========================================
+       3. PRODUCT DETAIL SECTION (Dữ liệu tự đổ vào)
+       ========================================== -->
+  <section class="section-padding container">
+    <div class="about-grid" style="align-items: start;">
+      
+      <!-- Hình ảnh sản phẩm -->
+      <div class="detail-img-box" style="border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+        <img id="p-img" src="" alt="Sản phẩm 1985 Café" style="width: 100%; height: 420px; object-fit: cover;">
+      </div>
+
+      <!-- Thông tin chi tiết sản phẩm -->
+      <div class="product-info">
+        <span id="p-badge" class="sub-title">1985 Café</span>
+        <h1 id="p-title" style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--primary-color); margin-bottom: 10px;">Tên Sản Phẩm</h1>
+        
+        <div id="p-price" style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 20px;">
+          0đ
+        </div>
+
+        <p id="p-desc" style="color: var(--text-muted); margin-bottom: 20px;">
+          Đang tải thông tin sản phẩm...
+        </p>
+
+        <!-- Khung tùy chọn đồ uống -->
+        <div class="options-box" style="background: #fff; padding: 20px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 25px;">
+          
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Mức đường:</label>
+            <select style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px;">
+              <option value="100">100% Đường (Chuẩn vị)</option>
+              <option value="70">70% Đường</option>
+              <option value="50">50% Đường (Ít ngọt)</option>
+              <option value="0">0% Đường</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Mức đá:</label>
+            <select style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px;">
+              <option value="100">100% Đá (Chuẩn vị)</option>
+              <option value="50">50% Đá (Ít đá)</option>
+              <option value="0">Không đá / Đá riêng</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 5px;">Số lượng:</label>
+            <input type="number" value="1" min="1" max="20" style="width: 80px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px;">
+          </div>
+        </div>
+
+        <!-- Nút thao tác -->
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <a href="../index.html#booking" class="btn btn-primary">Đặt Bàn & Thưởng Thức</a>
+          <a href="san-pham.html" class="btn btn-outline" style="color: var(--primary-color); border-color: var(--primary-color);">&larr; Xem Món Khác</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4. RELATED PRODUCTS (GỢI Ý CÁC MÓN KHÁC)
+       ========================================== -->
+  <section class="section-padding container" style="border-top: 1px solid var(--border-color);">
+    <div class="text-center">
+      <span class="sub-title">Khám Phá Thêm</span>
+      <h2 class="section-title">Gợi Ý Cho Bạn</h2>
+    </div>
+
+    <div class="menu-grid">
+      <!-- Item Gợi ý 1 -->
+      <div class="menu-card">
+        <div class="card-img">
+          <img src="../assets/cafe-den.jpg" alt="Cà Phê Phin">
+        </div>
+        <div class="card-body">
+          <h3 class="item-title">Cà Phê Phin Cổ Điển</h3>
+          <p class="item-desc">Đậm đà hương vị mộc truyền thống Trà Vinh.</p>
+          <div class="card-footer">
+            <span class="item-price">28.000đ</span>
+            <a href="chi-tiet.html?id=1" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Gợi ý 2 -->
+      <div class="menu-card">
+        <div class="card-img">
+          <img src="../assets/tra-mang-cau-dak-lak.jpg" alt="Trà Trái Cây">
+        </div>
+        <div class="card-body">
+          <h3 class="item-title">Trà Mảng Cầu Đắk Lắk</h3>
+          <p class="item-desc">Thanh mát, chua ngọt hài hòa từ trái cây tươi.</p>
+          <div class="card-footer">
+            <span class="item-price">38.000đ</span>
+            <a href="chi-tiet.html?id=3" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="../index.html" class="logo text-white">1985 <i>Café</i></a>
+        <p style="margin-top: 10px;">Cùng bạn lưu giữ những hoài niệm đẹp giữa lòng thành phố Trà Vinh.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Thứ 6: 06:30 - 22:00</p>
+        <p>Thứ 7 - Chủ Nhật: 06:30 - 22:30</p>
+      </div>
+      <div class="footer-col">
+        <h4>Địa Chỉ & Liên Hệ</h4>
+        <p>📍 Đường Phạm Ngũ Lão, Phường 1, TP. Trà Vinh</p>
+        <p>📞 0294 3868 985</p>
+        <p>✉️ contact@1985cafetravinh.vn</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom text-center">
+      <p>&copy; <span id="current-year"></span> <strong>1985 Café Trà Vinh</strong>. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <!-- DỮ LIỆU VÀ XỬ LÝ ĐỔ THÔNG TIN 6 MÓN -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Dữ liệu 6 sản phẩm khớp 100% với file assets của bạn
+      const productsData = {
+        "1": {
+          title: "Cà Phê Phin Cổ Điển",
+          badge: "TRADITIONAL",
+          price: "28.000đ",
+          img: "../assets/cafe-den.jpg",
+          desc: "Hạt Robusta mộc đậm đà pha phin chuẩn vị Trà Vinh hoài cổ. Ly cà phê đen phin giọt đắng lắng đọng mang lại trải nghiệm thư thái tuyệt vời cho buổi sáng."
+        },
+        "2": {
+          title: "Cà Phê Muối 1985",
+          badge: "SIGNATURE",
+          price: "35.000đ",
+          img: "../assets/cafe-muoi-1985.jpg",
+          desc: "Món quà đặc trưng nhất của quán. Cà phê phin đậm đà kết hợp với lớp kem mặn béo ngậy được đánh bông mịn theo công thức độc quyền năm 1985."
+        },
+        "3": {
+          title: "Trà Mảng Cầu Đắk Lắk",
+          badge: "BEST SELLER",
+          price: "38.000đ",
+          img: "../assets/tra-mang-cau-dak-lak.jpg",
+          desc: "Trà xanh thơm mát đơm đầy tép mảng cầu tươi chua ngọt tự nhiên nhập trực tiếp từ Đắk Lắk. Thức uống thanh nhiệt giải khát đỉnh cao."
+        },
+        "4": {
+          title: "Bạc Xỉu Sài Gòn",
+          badge: "CLASSIC",
+          price: "30.000đ",
+          img: "../assets/Bac-xiu-sai-gon.jpg",
+          desc: "Dành cho những ai yêu vị ngọt ngào. Lớp sữa đặc thơm béo quyện cùng một chút hương vị nồng nàn của cà phê phin nguyên chất."
+        },
+        "5": {
+          title: "Trà Đào Cam Sả",
+          badge: "REFRESHING",
+          price: "35.000đ",
+          img: "../assets/Tra-dao-cam-xa.jpg",
+          desc: "Vị trà thanh dịu kết hợp cùng hương sả nồng nàn, chút vị chua nhẹ của cam tươi và những miếng đào ngâm giòn sần sật."
+        },
+        "6": {
+          title: "Croissant Bơ Tươi",
+          badge: "BAKERY",
+          price: "32.000đ",
+          img: "../assets/Croissant-Bo-Tuoi.jpg",
+          desc: "Bánh sừng bò nướng nóng hổi tại chỗ, lớp vỏ ngoài giòn xốp nhiều lớp, bên trong mềm mịn ngập tràn hương bơ Pháp cao cấp."
+        }
+      };
+
+      // Đọc tham số id từ URL (vd: chi-tiet.html?id=2)
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id') || "1";
+
+      // Kiểm tra và đổ dữ liệu vào các thẻ ID tương ứng
+      const product = productsData[productId];
+      if (product) {
+        if (document.getElementById('p-title')) document.getElementById('p-title').innerText = product.title;
+        if (document.getElementById('breadcrumb-name')) document.getElementById('breadcrumb-name').innerText = product.title;
+        if (document.getElementById('p-badge')) document.getElementById('p-badge').innerText = product.badge;
+        if (document.getElementById('p-price')) document.getElementById('p-price').innerText = product.price;
+        if (document.getElementById('p-desc')) document.getElementById('p-desc').innerText = product.desc;
+        
+        const imgEl = document.getElementById('p-img');
+        if (imgEl) {
+          imgEl.src = product.img;
+          imgEl.alt = product.title;
+        }
+
+        document.title = product.title + " - 1985 Café Trà Vinh";
+      }
+    });
+  </script>
+
+  <!-- SCRIPT CHÍNH BÊN NGOÀI -->
+  <script src="../js/script.js"></script>
+</body>
+</html>

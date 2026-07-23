@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1985 Café Trà Vinh - Không Gian Cổ Điển & Hương Vị Hoài Niệm</title>
+  
+  <!-- Google Fonts: Playfair Display (Serif cổ điển) & Be Vietnam Pro (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       1. HEADER / NAVIGATION
+       ========================================== -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.jpg" alt="1985 Cafe Logo" class="logo-img" onerror="this.style.display='none'">
+        <span>1985 <i>Café</i></span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Trang chủ</a>
+        <a href="html/gioi-thieu.html" class="nav-link">Giới thiệu</a>
+        <a href="html/san-pham.html" class="nav-link">Sản phẩm</a>
+        <a href="html/lien-he.html" class="nav-link">Liên hệ</a>
+        <a href="#booking" class="nav-link btn-gold">Đặt bàn</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       2. HERO SECTION
+       ========================================== -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="sub-title">Trà Vinh — Est. 1985</span>
+      <h1 class="classic-title">Hương Vị Hoài Niệm<br>Góc Phố Cổ Trà Vinh</h1>
+      <p class="hero-desc">Nơi tìm lại những ký ức êm đềm qua không gian kiến trúc hoài cổ và từng giọt cà phê phin đậm đà nguyên bản.</p>
+      <div class="hero-btns">
+        <a href="html/san-pham.html" class="btn btn-primary">Khám Phá Menu</a>
+        <a href="#booking" class="btn btn-outline">Đặt Bàn Ngay</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       3. CÂU CHUYỆN / GIỚI THIỆU QUÁN
+       ========================================== -->
+  <section class="section-padding container">
+    <div class="text-center">
+      <span class="sub-title">Về 1985 Café</span>
+      <h2 class="section-title">Khoảng Lặng Giữa Lòng Thành Phố</h2>
+    </div>
+    <div class="about-grid">
+      <div class="arch-card">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Không gian 1985 Cafe Trà Vinh">
+      </div>
+      <div class="about-text">
+        <p>Tọa lạc trên con đường Phạm Ngũ Lão rợp bóng mát, <strong>1985 Café</strong> là điểm dừng chân quen thuộc của người dân Trà Vinh cũng như du khách phương xa.</p>
+        <p>Quán mang phong cách Vintage hoài cổ với những mảng tường gạch mộc, nội thất gỗ màu trầm và vật dụng trang trí từ thập niên 80-90. Kết hợp cùng âm nhạc êm dịu, 1985 Café tạo nên một không gian thư thái hoàn hảo cho những cuộc hẹn hay phút giây tĩnh lặng.</p>
+        <a href="html/gioi-thieu.html" class="btn btn-primary" style="margin-top: 10px;">Đọc Câu Chuyện &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       4. SẢN PHẨM NỔI BẬT (Đã truyền ID sang chi-tiet.html)
+       ========================================== -->
+  <section class="section-padding container">
+    <div class="text-center">
+      <span class="sub-title">Thực Đơn Đặc Biệt</span>
+      <h2 class="section-title">Món Thức Uống 1985</h2>
+    </div>
+
+    <div class="menu-grid">
+      <!-- Món 1: ID = 1 -->
+      <div class="menu-card">
+        <div class="card-img">
+        <img src="assets/cafe-den.jpg" alt="Cà Phê Phin 1985" alt="Cà Phê Phin 1985">
+          <span class="badge">Traditional</span>
+        </div>
+        <div class="card-body">
+          <h3 class="item-title">Cà Phê Phin Cổ Điển</h3>
+          <p class="item-desc">Đậm đà hương vị mộc truyền thống, chắt lọc từng giọt đậm vị.</p>
+          <div class="card-footer">
+            <span class="item-price">28.000đ</span>
+            <!-- Truyền id=1 vào URL -->
+            <a href="html/chi-tiet.html?id=1" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Món 2: ID = 2 -->
+      <div class="menu-card">
+        <div class="card-img">
+          <img src="assets/cafe-muoi-1985.jpg" alt="Cà Phê Muối" alt="Cà Phê Muối">
+          <span class="badge">Signature</span>
+        </div>
+        <div class="card-body">
+          <h3 class="item-title">Cà Phê Muối 1985</h3>
+          <p class="item-desc">Sự kết hợp hoàn hảo giữa đắng nhẹ, béo thơm và chút mặn mà của kem muối.</p>
+          <div class="card-footer">
+            <span class="item-price">35.000đ</span>
+            <!-- Truyền id=2 vào URL -->
+            <a href="html/chi-tiet.html?id=2" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Món 3: ID = 3 -->
+      <div class="menu-card">
+        <div class="card-img">
+          <img src="../assets/tra-mang-cau-dak-lak.jpg" alt="Trà Trái Cây">
+          <span class="badge">Best Seller</span>
+        </div>
+        <div class="card-body">
+          <h3 class="item-title">Trà Mảng Cầu Đắk Lắk</h3>
+          <p class="item-desc">Thanh mát, chua ngọt hài hòa từ trái cây tươi nguyên chất.</p>
+          <div class="card-footer">
+            <span class="item-price">38.000đ</span>
+            <!-- Truyền id=3 vào URL -->
+            <a href="html/chi-tiet.html?id=3" class="link-detail">Chi tiết &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 40px;">
+      <a href="html/san-pham.html" class="btn btn-outline" style="color: var(--primary-color); border-color: var(--primary-color);">Xem Tất Cả Món</a>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. ĐẶT BÀN TRỰC TUYẾN
+       ========================================== -->
+  <section id="booking" class="section-padding">
+    <div class="container">
+      <div class="booking-box">
+        <div class="text-center">
+          <span class="sub-title">Trải Nghiệm Không Gian</span>
+          <h2 class="section-title">Đặt Bàn Trước</h2>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-group">
+            <input type="text" placeholder="Họ và tên của bạn" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" placeholder="Số điện thoại" required>
+          </div>
+          <div class="form-group">
+            <input type="date" required>
+          </div>
+          <div class="form-group">
+            <select required>
+              <option value="" disabled selected>Số lượng khách</option>
+              <option value="1-2">1 - 2 Người</option>
+              <option value="3-5">3 - 5 Người</option>
+              <option value="5+">Nhóm trên 5 người</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Xác Nhận Đặt Bàn</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       6. FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo text-white">1985 <i>Café</i></a>
+        <p style="margin-top: 10px;">Cùng bạn lưu giữ những hoài niệm đẹp giữa lòng thành phố Trà Vinh.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Giờ Mở Cửa</h4>
+        <p>Thứ 2 - Thứ 6: 06:30 - 22:00</p>
+        <p>Thứ 7 - Chủ Nhật: 06:30 - 22:30</p>
+      </div>
+      <div class="footer-col">
+        <h4>Địa Chỉ & Liên Hệ</h4>
+        <p>📍 Đường Phạm Ngũ Lão, Phường 1, TP. Trà Vinh</p>
+        <p>📞 0294 3868 985</p>
+        <p>✉️ contact@1985cafetravinh.vn</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom text-center">
+      <p>&copy; <span id="current-year"></span> <strong>1985 Café Trà Vinh</strong>. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <!-- Script tự động cập nhật năm -->
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- JS chung -->
+  <script src="js/script.js"></script>
+</body>
+</html>
