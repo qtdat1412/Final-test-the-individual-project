@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập Khách Hàng - 1985 Café</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f7f3ed;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            background: #ffffff; width: 100%; max-width: 420px;
+            padding: 40px; border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(49, 28, 15, 0.08);
+            border-top: 5px solid #8c6239;
+        }
+        .logo-area { text-align: center; margin-bottom: 30px; }
+        .logo-area h1 { margin: 0; font-size: 24px; color: #311c0f; }
+        .logo-area p { margin: 5px 0 0; font-size: 14px; color: #666; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #311c0f; }
+        .form-group input { width: 100%; padding: 12px 15px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; }
+        .form-group input:focus { border-color: #8c6239; }
+        .btn-submit { width: 100%; padding: 12px; background-color: #8c6239; color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background-color: #6b4a2a; }
+        .switch-form { text-align: center; margin-top: 20px; font-size: 14px; color: #666; }
+        .switch-form a { color: #8c6239; text-decoration: none; font-weight: 600; }
+        .back-home { text-align: center; margin-top: 15px; }
+        .back-home a { color: #888; font-size: 13px; text-decoration: none; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- FORM ĐĂNG NHẬP -->
+        <div id="login-section" class="form-section active">
+            <div class="logo-area">
+                <h1>1985 Café</h1>
+                <p>Chào mừng bạn quay trở lại!</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Số điện thoại hoặc Email</label>
+                    <input type="text" id="login-username" required placeholder="Nhập SĐT hoặc Email">
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit">Đăng Nhập</button>
+            </form>
+            <div class="switch-form">
+                Chưa có tài khoản? <a href="#" onclick="switchSection('register')">Đăng ký ngay</a>
+            </div>
+        </div>
+
+        <!-- FORM ĐĂNG KÝ -->
+        <div id="register-section" class="form-section">
+            <div class="logo-area">
+                <h1>1985 Café</h1>
+                <p>Tạo tài khoản thành viên mới</p>
+            </div>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" id="reg-name" required placeholder="Nhập họ tên">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="tel" id="reg-phone" required placeholder="Nhập số điện thoại">
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="reg-password" required placeholder="Tạo mật khẩu">
+                </div>
+                <button type="submit" class="btn-submit">Đăng Ký</button>
+            </form>
+            <div class="switch-form">
+                Đã có tài khoản? <a href="#" onclick="switchSection('login')">Đăng nhập</a>
+            </div>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html">&larr; Về trang chủ 1985 Café</a>
+        </div>
+    </div>
+
+    <script>
+        function switchSection(section) {
+            if (section === 'register') {
+                document.getElementById('login-section').classList.remove('active');
+                document.getElementById('register-section').classList.add('active');
+            } else {
+                document.getElementById('register-section').classList.remove('active');
+                document.getElementById('login-section').classList.add('active');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            localStorage.setItem('isCustomerLoggedIn', 'true');
+            localStorage.setItem('customerName', username);
+            alert('Đăng nhập thành công!');
+            window.location.href = 'index.html';
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            alert('Đăng ký tài khoản thành công! Vui lòng đăng nhập.');
+            document.getElementById('login-username').value = name;
+            switchSection('login');
+        }
+    </script>
+</body>
+</html>

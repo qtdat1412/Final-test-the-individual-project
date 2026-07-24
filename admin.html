@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị Admin - 1985 Café</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Chung -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background-color: #311c0f;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+        .admin-sidebar .logo-area {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: #f4d0a7;
+        }
+        .admin-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+        .admin-menu li a {
+            display: block;
+            padding: 15px 20px;
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .admin-menu li a:hover, .admin-menu li.active a {
+            background-color: #8c6239;
+            color: #fff;
+        }
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 260px;
+        }
+        .admin-header {
+            background: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .admin-content {
+            padding: 30px;
+            overflow-y: auto;
+        }
+        /* Cards thống kê */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid #8c6239;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .stat-card .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #311c0f;
+        }
+        /* Bảng dữ liệu */
+        .data-table-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .table-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .table-header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #311c0f;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        th {
+            background-color: #fafafa;
+            color: #4a2e1b;
+            font-weight: 600;
+        }
+        .badge-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .badge-success { background: #e8f5e9; color: #2e7d32; }
+        .badge-pending { background: #fff8e1; color: #f57f17; }
+        .badge-danger { background: #ffebee; color: #c62828; }
+        
+        .btn-action {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        .btn-approve { background: #e8f5e9; color: #2e7d32; }
+        .btn-approve:hover { background: #c8e6c9; }
+        
+        .btn-reject { background: #ffebee; color: #c62828; }
+        .btn-reject:hover { background: #ffcdd2; }
+
+        .btn-delete { background: #f5f5f5; color: #666; }
+        .btn-delete:hover { background: #e0e0e0; }
+
+        .btn-primary-sm { background: #8c6239; color: #fff; text-decoration: none; display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 12px;}
+        
+        /* Ẩn hiện các tab */
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Kiểm tra bảo vệ trang Admin -->
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            alert('Vui lòng đăng nhập để truy cập trang quản trị!');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <div class="admin-wrapper">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="logo-area">
+                1985 Café Admin
+            </div>
+            <ul class="admin-menu">
+                <li id="menu-dashboard" class="active"><a href="#" onclick="switchTab('dashboard')">📊 Tổng quan Dashboard</a></li>
+                <li id="menu-dish"><a href="#" onclick="switchTab('dish')">☕ Duyệt Món Mới</a></li>
+                <li id="menu-booking"><a href="#" onclick="switchTab('booking')">📅 Quản lý Đặt bàn</a></li>
+                <li id="menu-sold"><a href="#" onclick="switchTab('sold')">📋 Thống kê món đã bán</a></li>
+                <li><a href="login.html" onclick="localStorage.removeItem('isLoggedIn'); localStorage.removeItem('userRole');">🚪 Đăng xuất</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <h2>Hệ Thống Quản Trị Quán Cà Phê</h2>
+                <div>Xin chào, <strong>Quản trị viên</strong> | <a href="index.html" style="color: #8c6239; text-decoration: none; font-weight: 500;">Về trang chủ &rarr;</a></div>
+            </header>
+
+            <!-- Nội dung chính -->
+            <div class="admin-content">
+                
+                <!-- TAB 1: DASHBOARD (HIỆN TẤT CẢ) -->
+                <div id="tab-dashboard" class="tab-pane active">
+                    <!-- Thống kê nhanh -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Món chờ duyệt</h3>
+                            <div class="number" id="pending-dish-count">3</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Tổng món đã gọi hôm nay</h3>
+                            <div class="number" id="total-sold-count">245</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Doanh thu hôm nay</h3>
+                            <div class="number">8.450.000đ</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Khách hàng truy cập</h3>
+                            <div class="number">128</div>
+                        </div>
+                    </div>
+
+                    <!-- BẢNG THỐNG KÊ 18 MÓN ĐÃ BÁN HÔM NAY -->
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Thống Kê Số Lượng 18 Món Đã Bán Hôm Nay</h2>
+                            <span style="font-size: 13px; color: #666;">Cập nhật theo thời gian thực</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên món</th>
+                                    <th>Danh mục</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng đã bán</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>Cà Phê Phin Cổ Điển</td><td>Traditional</td><td>28.000đ</td><td><strong>25</strong></td><td>700.000đ</td></tr>
+                                <tr><td>2</td><td>Cà Phê Sữa Đá Sài Gòn</td><td>Traditional</td><td>32.000đ</td><td><strong>20</strong></td><td>640.000đ</td></tr>
+                                <tr><td>3</td><td>Bạc Xỉu Đá</td><td>Traditional</td><td>35.000đ</td><td><strong>18</strong></td><td>630.000đ</td></tr>
+                                <tr><td>4</td><td>Cà Phê Đen Sài Gòn</td><td>Traditional</td><td>25.000đ</td><td><strong>15</strong></td><td>375.000đ</td></tr>
+                                <tr><td>5</td><td>Cà Phê Muối 1985</td><td>Signature</td><td>38.000đ</td><td><strong>30</strong></td><td>1.140.000đ</td></tr>
+                                <tr><td>6</td><td>Cà Phê Cốt Dừa</td><td>Signature</td><td>40.000đ</td><td><strong>12</strong></td><td>480.000đ</td></tr>
+                                <tr><td>7</td><td>Cà Phê Trứng Hà Nội</td><td>Signature</td><td>42.000đ</td><td><strong>10</strong></td><td>420.000đ</td></tr>
+                                <tr><td>8</td><td>Cold Brew Cam Vàng</td><td>Signature</td><td>45.000đ</td><td><strong>8</strong></td><td>360.000đ</td></tr>
+                                <tr><td>9</td><td>Trà Đào Cam Sả</td><td>Best Seller</td><td>38.000đ</td><td><strong>22</strong></td><td>836.000đ</td></tr>
+                                <tr><td>10</td><td>Trà Vải Hoa Hồng</td><td>Best Seller</td><td>38.000đ</td><td><strong>14</strong></td><td>532.000đ</td></tr>
+                                <tr><td>11</td><td>Trà Mãng Cầu Đắk Lắk</td><td>Best Seller</td><td>40.000đ</td><td><strong>16</strong></td><td>640.000đ</td></tr>
+                                <tr><td>12</td><td>Trà Xanh Latte</td><td>Tea & Latte</td><td>35.000đ</td><td><strong>9</strong></td><td>315.000đ</td></tr>
+                                <tr><td>13</td><td>Sữa Tươi Trân Châu Đường Đen</td><td>Tea & Latte</td><td>38.000đ</td><td><strong>11</strong></td><td>418.000đ</td></tr>
+                                <tr><td>14</td><td>Ca Cao Nóng Marshmallow</td><td>Tea & Latte</td><td>38.000đ</td><td><strong>5</strong></td><td>190.000đ</td></tr>
+                                <tr><td>15</td><td>Bánh Tiramisu Mini</td><td>Bakery</td><td>35.000đ</td><td><strong>12</strong></td><td>420.000đ</td></tr>
+                                <tr><td>16</td><td>Bánh Croissant Bơ Tỏi</td><td>Bakery</td><td>30.000đ</td><td><strong>7</strong></td><td>210.000đ</td></tr>
+                                <tr><td>17</td><td>Bánh Phô Mai Tan Chảy</td><td>Bakery</td><td>38.000đ</td><td><strong>6</strong></td><td>228.000đ</td></tr>
+                                <tr><td>18</td><td>Hạt Điều Rang Muối (Ăn vặt)</td><td>Snack</td><td>25.000đ</td><td><strong>5</strong></td><td>125.000đ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- BẢNG DUYỆT MÓN MỚI -->
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Kiểm Duyệt Món Ăn / Thức Uống Mới</h2>
+                            <span style="font-size: 13px; color: #666;">Danh sách món do nhân viên/chi nhánh đề xuất thêm vào menu</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã món</th>
+                                    <th>Tên món</th>
+                                    <th>Danh mục</th>
+                                    <th>Giá đề xuất</th>
+                                    <th>Người đề xuất</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-id="1">
+                                    <td>#M01</td>
+                                    <td>Cà Phê Trứng Hà Nội</td>
+                                    <td>Signature</td>
+                                    <td>40.000đ</td>
+                                    <td>Nhân viên pha chế</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="2">
+                                    <td>#M02</td>
+                                    <td>Trà Đào Cam Sả Đặc Biệt</td>
+                                    <td>Best Seller</td>
+                                    <td>38.000đ</td>
+                                    <td>Quản lý ca sáng</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="3">
+                                    <td>#M03</td>
+                                    <td>Bánh Tiramisu Mini</td>
+                                    <td>Bakery</td>
+                                    <td>35.000đ</td>
+                                    <td>Bếp trưởng</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- BẢNG QUẢN LÝ ĐẶT BÀN -->
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Danh Sách Khách Hàng Đặt Bàn</h2>
+                            <button class="btn-action btn-primary-sm" onclick="location.reload()">Làm mới</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ và tên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Số khách</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody class="booking-tbody">
+                                <tr data-id="BK101">
+                                    <td>#BK101</td>
+                                    <td>Nguyễn Văn An</td>
+                                    <td>0912345678</td>
+                                    <td>2026-06-10</td>
+                                    <td>2 Người</td>
+                                    <td><span class="badge-status badge-success">Đã xác nhận</span></td>
+                                    <td>
+                                        <button class="btn-action btn-delete" onclick="deleteBooking(this)">Xóa</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="BK102">
+                                    <td>#BK102</td>
+                                    <td>Trần Thị Mai</td>
+                                    <td>0988776655</td>
+                                    <td>2026-06-11</td>
+                                    <td>4 Người</td>
+                                    <td><span class="badge-status badge-pending booking-status">Chờ xử lý</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveBooking(this)">Xác nhận</button>
+                                        <button class="btn-action btn-delete" onclick="deleteBooking(this)">Xóa</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 2: CHỈ HIỆN KIỂM DUYỆT MÓN MỚI -->
+                <div id="tab-dish" class="tab-pane">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Kiểm Duyệt Món Ăn / Thức Uống Mới</h2>
+                            <span style="font-size: 13px; color: #666;">Danh sách món do nhân viên/chi nhánh đề xuất thêm vào menu</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã món</th>
+                                    <th>Tên món</th>
+                                    <th>Danh mục</th>
+                                    <th>Giá đề xuất</th>
+                                    <th>Người đề xuất</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-id="1">
+                                    <td>#M01</td>
+                                    <td>Cà Phê Trứng Hà Nội</td>
+                                    <td>Signature</td>
+                                    <td>40.000đ</td>
+                                    <td>Nhân viên pha chế</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="2">
+                                    <td>#M02</td>
+                                    <td>Trà Đào Cam Sả Đặc Biệt</td>
+                                    <td>Best Seller</td>
+                                    <td>38.000đ</td>
+                                    <td>Quản lý ca sáng</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="3">
+                                    <td>#M03</td>
+                                    <td>Bánh Tiramisu Mini</td>
+                                    <td>Bakery</td>
+                                    <td>35.000đ</td>
+                                    <td>Bếp trưởng</td>
+                                    <td><span class="badge-status badge-pending status-badge">Chờ duyệt</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveDish(this)">Duyệt</button>
+                                        <button class="btn-action btn-reject" onclick="rejectDish(this)">Từ chối</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CHỈ HIỆN QUẢN LÝ ĐẶT BÀN -->
+                <div id="tab-booking" class="tab-pane">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Danh Sách Khách Hàng Đặt Bàn</h2>
+                            <button class="btn-action btn-primary-sm" onclick="location.reload()">Làm mới</button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ và tên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Số khách</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody class="booking-tbody">
+                                <tr data-id="BK101">
+                                    <td>#BK101</td>
+                                    <td>Nguyễn Văn An</td>
+                                    <td>0912345678</td>
+                                    <td>2026-06-10</td>
+                                    <td>2 Người</td>
+                                    <td><span class="badge-status badge-success">Đã xác nhận</span></td>
+                                    <td>
+                                        <button class="btn-action btn-delete" onclick="deleteBooking(this)">Xóa</button>
+                                    </td>
+                                </tr>
+                                <tr data-id="BK102">
+                                    <td>#BK102</td>
+                                    <td>Trần Thị Mai</td>
+                                    <td>0988776655</td>
+                                    <td>2026-06-11</td>
+                                    <td>4 Người</td>
+                                    <td><span class="badge-status badge-pending booking-status">Chờ xử lý</span></td>
+                                    <td>
+                                        <button class="btn-action btn-approve" onclick="approveBooking(this)">Xác nhận</button>
+                                        <button class="btn-action btn-delete" onclick="deleteBooking(this)">Xóa</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 4: CHỈ HIỆN THỐNG KÊ 18 MÓN ĐÃ BÁN -->
+                <div id="tab-sold" class="tab-pane">
+                    <div class="data-table-container">
+                        <div class="table-header">
+                            <h2>Thống Kê Số Lượng 18 Món Đã Bán Hôm Nay</h2>
+                            <span style="font-size: 13px; color: #666;">Cập nhật theo thời gian thực</span>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên món</th>
+                                    <th>Danh mục</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng đã bán</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>Cà Phê Phin Cổ Điển</td><td>Traditional</td><td>28.000đ</td><td><strong>25</strong></td><td>700.000đ</td></tr>
+                                <tr><td>2</td><td>Cà Phê Sữa Đá Sài Gòn</td><td>Traditional</td><td>32.000đ</td><td><strong>20</strong></td><td>640.000đ</td></tr>
+                                <tr><td>3</td><td>Bạc Xỉu Đá</td><td>Traditional</td><td>35.000đ</td><td><strong>18</strong></td><td>630.000đ</td></tr>
+                                <tr><td>4</td><td>Cà Phê Đen Sài Gòn</td><td>Traditional</td><td>25.000đ</td><td><strong>15</strong></td><td>375.000đ</td></tr>
+                                <tr><td>5</td><td>Cà Phê Muối 1985</td><td>Signature</td><td>38.000đ</td><td><strong>30</strong></td><td>1.140.000đ</td></tr>
+                                <tr><td>6</td><td>Cà Phê Cốt Dừa</td><td>Signature</td><td>40.000đ</td><td><strong>12</strong></td><td>480.000đ</td></tr>
+                                <tr><td>7</td><td>Cà Phê Trứng Hà Nội</td><td>Signature</td><td>42.000đ</td><td><strong>10</strong></td><td>420.000đ</td></tr>
+                                <tr><td>8</td><td>Cold Brew Cam Vàng</td><td>Signature</td><td>45.000đ</td><td><strong>8</strong></td><td>360.000đ</td></tr>
+                                <tr><td>9</td><td>Trà Đào Cam Sả</td><td>Best Seller</td><td>38.000đ</td><td><strong>22</strong></td><td>836.000đ</td></tr>
+                                <tr><td>10</td><td>Trà Vải Hoa Hồng</td><td>Best Seller</td><td>38.000đ</td><td><strong>14</strong></td><td>532.000đ</td></tr>
+                                <tr><td>11</td><td>Trà Mãng Cầu Đắk Lắk</td><td>Best Seller</td><td>40.000đ</td><td><strong>16</strong></td><td>640.000đ</td></tr>
+                                <tr><td>12</td><td>Trà Xanh Latte</td><td>Tea & Latte</td><td>35.000đ</td><td><strong>9</strong></td><td>315.000đ</td></tr>
+                                <tr><td>13</td><td>Sữa Tươi Trân Châu Đường Đen</td><td>Tea & Latte</td><td>38.000đ</td><td><strong>11</strong></td><td>418.000đ</td></tr>
+                                <tr><td>14</td><td>Ca Cao Nóng Marshmallow</td><td>Tea & Latte</td><td>38.000đ</td><td><strong>5</strong></td><td>190.000đ</td></tr>
+                                <tr><td>15</td><td>Bánh Tiramisu Mini</td><td>Bakery</td><td>35.000đ</td><td><strong>12</strong></td><td>420.000đ</td></tr>
+                                <tr><td>16</td><td>Bánh Croissant Bơ Tỏi</td><td>Bakery</td><td>30.000đ</td><td><strong>7</strong></td><td>210.000đ</td></tr>
+                                <tr><td>17</td><td>Bánh Phô Mai Tan Chảy</td><td>Bakery</td><td>38.000đ</td><td><strong>6</strong></td><td>228.000đ</td></tr>
+                                <tr><td>18</td><td>Hạt Điều Rang Muối (Ăn vặt)</td><td>Snack</td><td>25.000đ</td><td><strong>5</strong></td><td>125.000đ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script điều hướng Tab và Thao tác -->
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.admin-menu li').forEach(el => el.classList.remove('active'));
+
+            if (tabName === 'dashboard') {
+                document.getElementById('tab-dashboard').classList.add('active');
+                document.getElementById('menu-dashboard').classList.add('active');
+            } else if (tabName === 'dish') {
+                document.getElementById('tab-dish').classList.add('active');
+                document.getElementById('menu-dish').classList.add('active');
+            } else if (tabName === 'booking') {
+                document.getElementById('tab-booking').classList.add('active');
+                document.getElementById('menu-booking').classList.add('active');
+            } else if (tabName === 'sold') {
+                document.getElementById('tab-sold').classList.add('active');
+                document.getElementById('menu-sold').classList.add('active');
+            }
+        }
+
+        function updateStats() {
+            const pendingDishes = document.querySelectorAll('.status-badge');
+            let pendingDishCount = 0;
+            pendingDishes.forEach(badge => {
+                if (badge.textContent.includes('Chờ duyệt')) pendingDishCount++;
+            });
+            const countEl = document.getElementById('pending-dish-count');
+            if(countEl) countEl.textContent = pendingDishCount;
+        }
+
+        function approveDish(button) {
+            const row = button.closest('tr');
+            const dishName = row.cells[1].textContent;
+            
+            document.querySelectorAll('tbody tr').forEach(r => {
+                if(r.cells[1] && r.cells[1].textContent === dishName) {
+                    const badge = r.querySelector('.status-badge');
+                    if(badge) {
+                        badge.textContent = 'Đã duyệt';
+                        badge.className = 'badge-status badge-success status-badge';
+                    }
+                    if(r.cells[6]) {
+                        r.cells[6].innerHTML = '<span style="color: #2e7d32; font-weight: 500; font-size: 13px;">✔ Đã thêm vào Menu</span>';
+                    }
+                }
+            });
+            updateStats();
+        }
+
+        function rejectDish(button) {
+            const row = button.closest('tr');
+            const dishName = row.cells[1].textContent;
+
+            document.querySelectorAll('tbody tr').forEach(r => {
+                if(r.cells[1] && r.cells[1].textContent === dishName) {
+                    const badge = r.querySelector('.status-badge');
+                    if(badge) {
+                        badge.textContent = 'Đã từ chối';
+                        badge.className = 'badge-status badge-danger status-badge';
+                    }
+                    if(r.cells[6]) {
+                        r.cells[6].innerHTML = '<span style="color: #c62828; font-weight: 500; font-size: 13px;">✖ Đã từ chối món</span>';
+                    }
+                }
+            });
+            updateStats();
+        }
+
+        function approveBooking(button) {
+            const row = button.closest('tr');
+            const bookingId = row.cells[0].textContent;
+
+            document.querySelectorAll('.booking-tbody tr').forEach(r => {
+                if(r.cells[0] && r.cells[0].textContent === bookingId) {
+                    const badge = r.querySelector('.booking-status');
+                    if(badge) {
+                        badge.textContent = 'Đã xác nhận';
+                        badge.className = 'badge-status badge-success';
+                    }
+                    if(r.cells[6]) {
+                        r.cells[6].innerHTML = '<span style="color: #2e7d32; font-weight: 500; font-size: 13px;">✔ Đã xác nhận</span>';
+                    }
+                }
+            });
+        }
+
+        function deleteBooking(button) {
+            if (confirm('Bạn có chắc chắn muốn xóa đơn đặt bàn này không?')) {
+                const row = button.closest('tr');
+                const bookingId = row.cells[0].textContent;
+
+                document.querySelectorAll('.booking-tbody tr').forEach(r => {
+                    if(r.cells[0] && r.cells[0].textContent === bookingId) {
+                        r.remove();
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1985 Café Trà Vinh - Không Gian Cổ Điển & Hương Vị Hoài Niệm</title>
   
-  <!-- Google Fonts: Playfair Display (Serif cổ điển) & Be Vietnam Pro (Sans-serif) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -16,8 +16,8 @@
 <body>
 
   <!-- ==========================================
-       1. HEADER / NAVIGATION
-       ========================================== -->
+        1. HEADER / NAVIGATION
+        ========================================== -->
   <header class="header">
     <div class="container nav-container">
       <a href="index.html" class="logo">
@@ -30,14 +30,18 @@
         <a href="html/gioi-thieu.html" class="nav-link">Giới thiệu</a>
         <a href="html/san-pham.html" class="nav-link">Sản phẩm</a>
         <a href="html/lien-he.html" class="nav-link">Liên hệ</a>
+        
+        <!-- Nút Đăng nhập / Tự động chuyển thành Quản trị Admin hoặc Tên Khách hàng -->
+        <a href="login.html" class="nav-link auth-link" id="auth-link">Đăng nhập</a>
+
         <a href="#booking" class="nav-link btn-gold">Đặt bàn</a>
       </nav>
     </div>
   </header>
 
   <!-- ==========================================
-       2. HERO SECTION
-       ========================================== -->
+        2. HERO SECTION
+        ========================================== -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
@@ -52,8 +56,8 @@
   </section>
 
   <!-- ==========================================
-       3. CÂU CHUYỆN / GIỚI THIỆU QUÁN
-       ========================================== -->
+        3. CÂU CHUYỆN / GIỚI THIỆU QUÁN
+        ========================================== -->
   <section class="section-padding container">
     <div class="text-center">
       <span class="sub-title">Về 1985 Café</span>
@@ -72,8 +76,8 @@
   </section>
 
   <!-- ==========================================
-       4. SẢN PHẨM NỔI BẬT (Đã truyền ID sang chi-tiet.html)
-       ========================================== -->
+        4. SẢN PHẨM NỔI BẬT
+        ========================================== -->
   <section class="section-padding container">
     <div class="text-center">
       <span class="sub-title">Thực Đơn Đặc Biệt</span>
@@ -84,16 +88,18 @@
       <!-- Món 1: ID = 1 -->
       <div class="menu-card">
         <div class="card-img">
-        <img src="assets/cafe-den.jpg" alt="Cà Phê Phin 1985" alt="Cà Phê Phin 1985">
+          <img src="assets/cafe-den.jpg" alt="Cà Phê Phin 1985">
           <span class="badge">Traditional</span>
         </div>
         <div class="card-body">
           <h3 class="item-title">Cà Phê Phin Cổ Điển</h3>
           <p class="item-desc">Đậm đà hương vị mộc truyền thống, chắt lọc từng giọt đậm vị.</p>
-          <div class="card-footer">
+          <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
             <span class="item-price">28.000đ</span>
-            <!-- Truyền id=1 vào URL -->
-            <a href="html/chi-tiet.html?id=1" class="link-detail">Chi tiết &rarr;</a>
+            <div>
+              <a href="html/chi-tiet.html?id=1" class="link-detail" style="margin-right: 10px;">Chi tiết</a>
+              <button onclick="orderDish('Cà Phê Phin Cổ Điển', '28.000đ')" style="background-color: #311c0f; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">Đặt món</button>
+            </div>
           </div>
         </div>
       </div>
@@ -101,33 +107,37 @@
       <!-- Món 2: ID = 2 -->
       <div class="menu-card">
         <div class="card-img">
-          <img src="assets/cafe-muoi-1985.jpg" alt="Cà Phê Muối" alt="Cà Phê Muối">
+          <img src="assets/cafe-muoi-1985.jpg" alt="Cà Phê Muối">
           <span class="badge">Signature</span>
         </div>
         <div class="card-body">
           <h3 class="item-title">Cà Phê Muối 1985</h3>
           <p class="item-desc">Sự kết hợp hoàn hảo giữa đắng nhẹ, béo thơm và chút mặn mà của kem muối.</p>
-          <div class="card-footer">
+          <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
             <span class="item-price">35.000đ</span>
-            <!-- Truyền id=2 vào URL -->
-            <a href="html/chi-tiet.html?id=2" class="link-detail">Chi tiết &rarr;</a>
+            <div>
+              <a href="html/chi-tiet.html?id=2" class="link-detail" style="margin-right: 10px;">Chi tiết</a>
+              <button onclick="orderDish('Cà Phê Muối 1985', '35.000đ')" style="background-color: #311c0f; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">Đặt món</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Món 3: ID = 3 -->
+      <!-- Món 3: ID = 7 (Trà Mảng Cầu) -->
       <div class="menu-card">
         <div class="card-img">
-          <img src="../assets/tra-mang-cau-dak-lak.jpg" alt="Trà Trái Cây">
+          <img src="assets/tra-mang-cau-dak-lak.jpg" alt="Trà Trái Cây">
           <span class="badge">Best Seller</span>
         </div>
         <div class="card-body">
           <h3 class="item-title">Trà Mảng Cầu Đắk Lắk</h3>
           <p class="item-desc">Thanh mát, chua ngọt hài hòa từ trái cây tươi nguyên chất.</p>
-          <div class="card-footer">
+          <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
             <span class="item-price">38.000đ</span>
-            <!-- Truyền id=3 vào URL -->
-            <a href="html/chi-tiet.html?id=3" class="link-detail">Chi tiết &rarr;</a>
+            <div>
+              <a href="html/chi-tiet.html?id=7" class="link-detail" style="margin-right: 10px;">Chi tiết</a>
+              <button onclick="orderDish('Trà Mảng Cầu Đắk Lắk', '38.000đ')" style="background-color: #311c0f; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">Đặt món</button>
+            </div>
           </div>
         </div>
       </div>
@@ -139,8 +149,8 @@
   </section>
 
   <!-- ==========================================
-       5. ĐẶT BÀN TRỰC TUYẾN
-       ========================================== -->
+        5. ĐẶT BÀN TRỰC TUYẾN
+        ========================================== -->
   <section id="booking" class="section-padding">
     <div class="container">
       <div class="booking-box">
@@ -148,7 +158,7 @@
           <span class="sub-title">Trải Nghiệm Không Gian</span>
           <h2 class="section-title">Đặt Bàn Trước</h2>
         </div>
-        <form class="booking-form" id="bookingForm">
+        <form class="booking-form" id="bookingForm" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đặt bàn! Chúng tôi sẽ liên hệ xác nhận sớm.');">
           <div class="form-group">
             <input type="text" placeholder="Họ và tên của bạn" required>
           </div>
@@ -173,8 +183,8 @@
   </section>
 
   <!-- ==========================================
-       6. FOOTER
-       ========================================== -->
+        6. FOOTER
+        ========================================== -->
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-col">
@@ -199,12 +209,7 @@
     </div>
   </footer>
 
-  <!-- Script tự động cập nhật năm -->
-  <script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-  </script>
-
-  <!-- JS chung -->
+  <!-- JavaScript liên kết hệ thống -->
   <script src="js/script.js"></script>
 </body>
 </html>

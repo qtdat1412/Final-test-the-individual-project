@@ -182,7 +182,10 @@ document.addEventListener("DOMContentLoaded", function () {
     yearEl.innerText = new Date().getFullYear();
   }
 
-  // B. Xử lý cho trang CHI TIẾT SẢN PHẨM (chi-tiet.html)
+  // B. Kiểm tra trạng thái đăng nhập để đồng bộ giao diện toàn hệ thống
+  checkLoginState();
+
+  // C. Xử lý cho trang CHI TIẾT SẢN PHẨM (chi-tiet.html)
   if (window.location.pathname.includes("chi-tiet.html")) {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id') || "1";
@@ -198,23 +201,87 @@ document.addEventListener("DOMContentLoaded", function () {
       
       const imgEl = document.getElementById('p-img');
       if (imgEl) {
-        imgEl.src = product.img;
+        imgEl.src = window.location.pathname.includes('/html/') ? product.img : product.img.replace('../', '');
         imgEl.alt = product.title;
       }
 
       document.title = product.title + " - 1985 Café Trà Vinh";
 
-      // Render danh sách gợi ý 5 CÙNG LOẠI + 1 NGẪU NHIÊN KHÁC LOẠI
       renderRelatedProducts(productId);
     }
   }
 
-  // C. Xử lý LỌC DANH MỤC (san-pham.html)
+  // D. Xử lý LỌC DANH MỤC (san-pham.html)
   setupCategoryFilter();
+
+  // E. Xử lý tải danh sách đơn hàng cho trang Admin (admin.html)
+  if (window.location.pathname.includes("admin.html")) {
+    if (localStorage.getItem('userRole') !== 'admin') {
+      alert('Vui lòng đăng nhập tài khoản Quản trị viên!');
+      window.location.href = window.location.pathname.includes('/html/') ? '../login.html' : 'login.html';
+      return;
+    }
+    renderAdminOrders();
+  }
+
+  // F. Xử lý Form Đăng Nhập (login.html)
+  setupLoginForm();
 });
 
 // ==========================================
-// 3. HÀM LỌC SẢN PHẨM THEO DANH MỤC (NÚT BẤM)
+// 3. HÀM KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP & PHÂN QUYỀN
+// ==========================================
+function checkLoginState() {
+  const userRole = localStorage.getItem('userRole'); 
+  const customerName = localStorage.getItem('customerName') || 'Khách hàng';
+
+  const authLink = document.getElementById('auth-link');
+  if (!authLink) return;
+
+  const isInHtmlFolder = window.location.pathname.includes('/html/');
+
+  // 1. Nếu là Admin đăng nhập (hoặc tên bị lưu nhầm thành admin)
+  if (userRole === 'admin' || customerName.toLowerCase() === 'admin') {
+    localStorage.setItem('userRole', 'admin');
+    localStorage.setItem('customerName', 'Quản trị viên');
+
+    authLink.href = isInHtmlFolder ? '../admin.html' : 'admin.html';
+    authLink.innerHTML = '⚙️ Quản trị Admin';
+    authLink.style.color = '#c5a059';
+    authLink.style.fontWeight = '600';
+    authLink.title = 'Trang quản trị hệ thống';
+  } 
+  // 2. Nếu là Khách hàng đăng nhập
+  else if (userRole === 'customer') {
+    authLink.innerHTML = `👤 ${customerName}`;
+    authLink.href = '#';
+    authLink.title = 'Nhấn để đăng xuất';
+    authLink.style.color = '';
+    authLink.style.fontWeight = '';
+
+    if (!authLink.hasAttribute('data-logout-bound')) {
+      authLink.setAttribute('data-logout-bound', 'true');
+      authLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm(`Bạn có muốn đăng xuất tài khoản (${customerName}) không?`)) {
+          localStorage.clear(); 
+          alert('Đã đăng xuất thành công!');
+          window.location.href = isInHtmlFolder ? '../index.html' : 'index.html';
+        }
+      });
+    }
+  } 
+  // 3. Chưa đăng nhập
+  else {
+    authLink.href = isInHtmlFolder ? '../login.html' : 'login.html';
+    authLink.textContent = 'Đăng nhập';
+    authLink.style.color = '';
+    authLink.style.fontWeight = '';
+  }
+}
+
+// ==========================================
+// 4. HÀM LỌC SẢN PHẨM THEO DANH MỤC
 // ==========================================
 function setupCategoryFilter() {
   const filterBtns = document.querySelectorAll(".filter-btn");
@@ -249,7 +316,7 @@ function setupCategoryFilter() {
 }
 
 // ==========================================
-// 4. HÀM GỢI Ý 5 MÓN CÙNG LOẠI + 1 MÓN NGẪU NHIÊN KHÁC LOẠI
+// 5. HÀM GỢI Ý 5 MÓN CÙNG LOẠI + 1 MÓN KHÁC LOẠI
 // ==========================================
 function renderRelatedProducts(currentId) {
   const menuGrid = document.querySelector(".menu-grid");
@@ -262,45 +329,169 @@ function renderRelatedProducts(currentId) {
 
   const currentCategory = currentProduct.category;
 
-  // Step 1: Lấy các sản phẩm CÙNG danh mục (loại trừ món hiện tại)
   const sameCategoryProducts = Object.values(PRODUCTS_DATA).filter(
     item => item.category === currentCategory && item.id !== currentId
   );
 
-  // Step 2: Lấy các sản phẩm KHÁC danh mục
   const otherCategoryProducts = Object.values(PRODUCTS_DATA).filter(
     item => item.category !== currentCategory
   );
 
-  // Step 3: Lấy đủ 5 món CÙNG loại (xáo trộn ngẫu nhiên vị trí nếu muốn)
   const shuffledSameCategory = sameCategoryProducts.sort(() => 0.5 - Math.random());
   const sameCategorySuggestions = shuffledSameCategory.slice(0, 5);
 
-  // Step 4: Lấy ngẫu nhiên 1 món KHÁC loại (bất kể là trà hay bánh hay cà phê)
   const shuffledOtherCategory = otherCategoryProducts.sort(() => 0.5 - Math.random());
   const randomOtherSuggestion = shuffledOtherCategory.slice(0, 1);
 
-  // Step 5: Gộp lại thành danh sách 6 món gợi ý
   const finalSuggestions = [...sameCategorySuggestions, ...randomOtherSuggestion];
 
-  // Step 6: Hiển thị ra HTML
   finalSuggestions.forEach(item => {
+    const isSubFolder = window.location.pathname.includes('/html/');
+    const fixedImgPath = isSubFolder ? item.img : item.img.replace('../', '');
+
     const cardHTML = `
       <div class="menu-card" data-category="${item.category}">
         <div class="card-img">
-          <img src="${item.img}" alt="${item.title}" onerror="this.src='../assets/cafe-den.jpg'">
+          <img src="${fixedImgPath}" alt="${item.title}" onerror="this.src='${isSubFolder ? '../assets/cafe-den.jpg' : 'assets/cafe-den.jpg'}'">
         </div>
         <div class="card-body">
           <span style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 600; letter-spacing: 1px;">${item.badge}</span>
           <h3 class="item-title">${item.title}</h3>
           <p class="item-desc">${item.desc}</p>
-          <div class="card-footer">
+          <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
             <span class="item-price">${item.price}</span>
-            <a href="chi-tiet.html?id=${item.id}" class="link-detail">Chi tiết &rarr;</a>
+            <div>
+              <a href="chi-tiet.html?id=${item.id}" class="link-detail" style="margin-right: 8px;">Chi tiết</a>
+              <button onclick="orderDish('${item.title}', '${item.price}')" style="background-color: #311c0f; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">Đặt món</button>
+            </div>
           </div>
         </div>
       </div>
     `;
     menuGrid.innerHTML += cardHTML;
   });
+}
+
+// ==========================================
+// 6. TÍNH NĂNG ĐẶT MÓN
+// ==========================================
+function orderDish(dishName, price) {
+  const userRole = localStorage.getItem('userRole');
+
+  if (!userRole) {
+    alert('Vui lòng đăng nhập tài khoản trước khi thực hiện đặt món!');
+    window.location.href = window.location.pathname.includes('/html/') ? '../login.html' : 'login.html';
+    return;
+  }
+
+  const currentUserName = localStorage.getItem('customerName') || (userRole === 'admin' ? 'Quản trị viên' : 'Khách lẻ');
+
+  let orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+
+  const newOrder = {
+    id: 'OD' + Math.floor(100 + Math.random() * 900),
+    customer: currentUserName,
+    dish: dishName,
+    price: price,
+    time: new Date().toLocaleTimeString(),
+    status: 'Chờ duyệt'
+  };
+
+  orders.push(newOrder);
+  localStorage.setItem('customerOrders', JSON.stringify(orders));
+
+  alert(`Đặt món "${dishName}" thành công! Hệ thống đã gửi yêu cầu đến Admin để duyệt.`);
+}
+
+// ==========================================
+// 7. XỬ LÝ DUYỆT MÓN (admin.html)
+// ==========================================
+function renderAdminOrders() {
+  const tbody = document.getElementById('admin-order-list');
+  if (!tbody) return;
+
+  let orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+
+  if (orders.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 20px; color:#777;">Chưa có đơn đặt món nào từ khách hàng.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = '';
+  orders.forEach((order, index) => {
+    let statusStyle = order.status === 'Chờ duyệt' 
+      ? 'background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 12px;' 
+      : 'background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-size: 12px;';
+
+    let actionBtns = order.status === 'Chờ duyệt' 
+      ? `<button onclick="approveOrder(${index})" style="background: #28a745; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px;">Duyệt</button>
+         <button onclick="deleteOrder(${index})" style="background: #dc3545; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Hủy</button>`
+      : `<span style="color: #28a745; font-weight: 500;">Đã hoàn tất</span>`;
+
+    tbody.innerHTML += `
+      <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 12px;">#${order.id}</td>
+        <td style="padding: 12px; font-weight: 500;">${order.customer}</td>
+        <td style="padding: 12px;">${order.dish}</td>
+        <td style="padding: 12px; color: #8c6239; font-weight: bold;">${order.price}</td>
+        <td style="padding: 12px; color: #666; font-size: 13px;">${order.time}</td>
+        <td style="padding: 12px;"><span style="${statusStyle}">${order.status}</span></td>
+        <td style="padding: 12px;">${actionBtns}</td>
+      </tr>
+    `;
+  });
+}
+
+function approveOrder(index) {
+  let orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+  orders[index].status = 'Đã duyệt';
+  localStorage.setItem('customerOrders', JSON.stringify(orders));
+  alert('Đã duyệt đơn món thành công!');
+  renderAdminOrders();
+}
+
+function deleteOrder(index) {
+  if (confirm('Bạn có chắc muốn xóa hoặc từ chối đơn đặt món này không?')) {
+    let orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+    orders.splice(index, 1);
+    localStorage.setItem('customerOrders', JSON.stringify(orders));
+    renderAdminOrders();
+  }
+}
+
+// ==========================================
+// 8. XỬ LÝ ĐĂNG NHẬP (login.html) - HỖ TRỢ CẢ 2 MẬT KHẨU ADMIN (1412 & 123456)
+// ==========================================
+function setupLoginForm() {
+  const loginForm = document.getElementById("loginForm");
+  
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      const usernameInput = loginForm.querySelector('input[type="text"], input[type="email"]');
+      const passwordInput = loginForm.querySelector('input[type="password"]');
+      
+      if (!usernameInput || !passwordInput) return;
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      // Kiểm tra tài khoản admin với cả 2 mật khẩu '1412' hoặc '123456'
+      if (username.toLowerCase() === 'admin' && (password === '1412' || password === '123456')) {
+        localStorage.setItem('userRole', 'admin');
+        localStorage.setItem('customerName', 'Quản trị viên');
+        alert('Đăng nhập thành công với quyền Quản trị viên!');
+        window.location.href = window.location.pathname.includes('/html/') ? '../admin.html' : 'admin.html';
+      } else if (username !== '' && password !== '') {
+        // Tài khoản khách hàng bình thường
+        localStorage.setItem('userRole', 'customer');
+        localStorage.setItem('customerName', username);
+        alert(`Chào mừng ${username} đã quay trở lại 1985 Café!`);
+        window.location.href = window.location.pathname.includes('/html/') ? '../index.html' : 'index.html';
+      } else {
+        alert('Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!');
+      }
+    });
+  }
 }
